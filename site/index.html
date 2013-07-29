@@ -24,7 +24,7 @@
                 <li> {{title}} </li>
                 <li> {{author}} </li>
                 <li> {{date releaseDate}} </li>
-                <li> {{keywords}} </li>
+                <li> {{#each keywords}} {{this.keyword}} {{/each}} </li>
             </ul>
 
             <button class="delete">Delete</button>
