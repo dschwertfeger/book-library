@@ -1,45 +1,45 @@
 var app = app || {};
 
 app.LibraryView = Backbone.View.extend({
-  el: '#books',
+    el: '#books',
 
-  initialize: function( initialBooks ) {
-    this.collection = new app.Library( initialBooks );
-    this.listenTo( this.collection, 'add', this.renderBook ); 
-    this.render();
-  },
+    initialize: function( initialBooks ) {
+        this.collection = new app.Library( initialBooks );
+        this.listenTo( this.collection, 'add', this.renderBook );
+        this.render();
+    },
 
-  // render libraray by rendering each book in its collection
-  render: function() {
-    this.collection.each(function( item ) {
-      this.renderBook( item );
-    }, this);
-  },
+    // render libraray by rendering each book in its collection
+    render: function() {
+        this.collection.each(function( item ) {
+           this.renderBook( item );
+        }, this);
+    },
 
-  // render a book by creating a BookView and appending the 
-  // element it renders to the library's element
-  renderBook: function( item ) {
-    var bookView = new app.BookView({
-      model: item
-    });
-    this.$el.append( bookView.render().el );
-  },
+      // render a book by creating a BookView and appending the 
+      // element it renders to the library's element
+    renderBook: function( item ) {
+        var bookView = new app.BookView({
+             model: item
+        });
+            this.$el.append( bookView.render().el );
+    },
 
-  events: {
-    'click #add': 'addBook'
-  },
+    events: {
+        'click #add': 'addBook'
+    },
 
-  addBook: function( e ) {
-    e.preventDefault();
+    addBook: function( e ) {
+        e.preventDefault();
 
-    var formData = {};
+        var formData = {};
 
-    $( '#addBook div' ).children( 'input' ).each( function( i, el ) {
-      if( $( el ).val() != '' ) {
-        formData[ el.id ] = $( el ).val();
-      }
-    });
+        $( '#addBook div' ).children( 'input' ).each( function( i, el ) {
+            if( $( el ).val() !== '' ) {
+                formData[ el.id ] = $( el ).val();
+            }
+        });
 
-    this.collection.add( new app.Book( formData ) );
-  }
+        this.collection.add( new app.Book( formData ) );
+    }
 });
