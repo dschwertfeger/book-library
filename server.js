@@ -87,6 +87,21 @@ app.put( '/api/books/:id', function( request, response ) {
     });
 });
 
+// Delete a book
+app.delete( '/api/books/:id', function( request, response ) {
+    console.log( 'Deleting book with id: ' + request.params.id );
+    return BookModel.findById( request.params.id, function( err, book ) {
+        return book.remove( function( err ) {
+            if( !err ) {
+                console.log( 'Book removed' );
+                return response.send( '' );
+            } else {
+                console.log( err );
+            }
+        });
+    });
+});
+
 // Connect to database
 mongoose.connect( 'mongodb://localhost/library_database' );
 
