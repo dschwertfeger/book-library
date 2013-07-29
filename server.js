@@ -24,6 +24,35 @@ app.configure( function() {
     app.use( express.errorHandler({ dumpExceptions: true, showStack: true }) );
 });
 
+// Routes
+app.get( '/api', function( request, response ) {
+    response.send( 'Library API is running' );
+});
+
+// Get a list of all books
+app.get( '/api/books', function( request, response ) {
+    return BookModel.find( function( err, books ) {
+        if( !err ) {
+            return response.send( books );
+        } else {
+            return console.log( err );
+        }
+    });
+});
+
+// Connect to database
+mongoose.connect( 'mongodb://localhost/library_database' );
+
+// Schemas
+var Book = new mongoose.Schema({
+    title: String,
+    author: String,
+    releaseDate: Date
+});
+
+// Models
+var BookModel = mongoose.model( 'Book', Book );
+
 // Start server
 var port = 4711;
 app.listen( port, function() {
